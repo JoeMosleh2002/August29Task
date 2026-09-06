@@ -28,112 +28,129 @@ class Person {
         this.name = name;
     }
 
-    @Override
+
+  //  @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return id == person.id;
-    }
+        return id == person.id &&Objects.equals(name, person.name);    }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id,name);
+
     }
 
     @Override
-    public String toString() {
-        return "Person{id=" + id + ", name='" + name + "'}";
+    public String toString(){
+        return "ID : " + this.id +" Name : " + this.name;
     }
 }
 
-class Product {
-    private String code;
-    private double price;
 
-    public Product(String code, double price) {
-        this.code = code;
-        this.price = price;
-    }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
-        return Objects.equals(code, product.code);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(code);
-    }
-}
 
-class CourseStudent {
-    private int id;
-    private String email;
 
-    public CourseStudent(int id, String email) {
-        this.id = id;
-        this.email = email;
-    }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CourseStudent that = (CourseStudent) o;
-        return id == that.id;
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-}
 
-class Car {
-    private String plateNumber;
-    private String color;
-
-    public Car(String plateNumber, String color) {
-        this.plateNumber = plateNumber;
-        this.color = color;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Car car = (Car) o;
-        return Objects.equals(plateNumber, car.plateNumber);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(plateNumber);
-    }
-}
-
- class TaskImplementation {
+public class Main {
     public static void main(String[] args) {
-        Set<Person> peopleSet = new HashSet<>();
-        peopleSet.add(new Person(1, "Ahmed"));
-        peopleSet.add(new Person(1, "Ahmed"));
-        peopleSet.add(new Person(2, "Osama"));
+        Person person1 = new Person(1996, "Rhea Ripley");
+        Person person2 = new Person(1996, "Rhea Ripley");
 
-        System.out.println(peopleSet.size());
+        Person person3 = new Person(2002, "Sadie Sink");
+        Person person4 = new Person(2002, "Inde Naverrete");
 
-        HashMap<Person, String> employeeMap = new HashMap<>();
-        Person p1 = new Person(101, "Ali");
-        employeeMap.put(p1, "Manager");
 
-        Person searchKey = new Person(101, "Ali");
-        System.out.println(employeeMap.containsKey(searchKey));
-        System.out.println(employeeMap.get(searchKey));
+        // Before Overriding equals(): Compares references so it will return false and will return diffrent hashcodes
 
-        p1.setId(999);
-        System.out.println(employeeMap.containsKey(p1));
+        System.out.println(person1.equals(person2));
+        System.out.println(person3.equals(person4));
+
+
+        Set<Person> wweRoster = new HashSet<>();
+        // override by ID only : Size will only be 5
+        wweRoster.add(new Person(1, "Roman Reigns"));         // 1. Unique ID 1
+        wweRoster.add(new Person(1, "The Tribal Chief"));      // 2. Duplicate ID 1 -> REJECTED
+        wweRoster.add(new Person(2, "Cody Rhodes"));         // 3. Unique ID 2
+        wweRoster.add(new Person(2, "Seth Rollins"));        // 4. Unique ID 3
+        wweRoster.add(new Person(3, "CM Punk"));             // 5. Unique ID 4
+        wweRoster.add(new Person(3, "The American Nightmare"));// 6. Duplicate ID 2 -> REJECTED
+        wweRoster.add(new Person(4, "Randy Orton"));         // 7. Unique ID 5
+        wweRoster.add(new Person(4, "Rhea Ripley"));         // 8. Unique ID 6
+        wweRoster.add(new Person(5, "Drew McIntyre"));       // 9. Unique ID 7
+        wweRoster.add(new Person(5, "Gunther"));             // 10. Unique ID 8
+
+
+
+
+
+        System.out.println("Size of set : " + wweRoster.size()); //
+        System.out.println("---------------------------------------------------");
+        wweRoster.clear();
+//  By Names : Size will be 5
+        wweRoster.add(new Person(1, "Roman Reigns"));
+        wweRoster.add(new Person(2, "Roman Reigns"));
+        wweRoster.add(new Person(3, "Cody Rhodes"));
+        wweRoster.add(new Person(4, "Cody Rhodes"));
+        wweRoster.add(new Person(5, "CM Punk"));
+        wweRoster.add(new Person(6, "CM Punk"));
+        wweRoster.add(new Person(7, "Rhea Ripley"));
+        wweRoster.add(new Person(8, "Rhea Ripley"));
+        wweRoster.add(new Person(9, "Gunther"));
+        wweRoster.add(new Person(10, "Gunther"));
+
+
+        System.out.println("Size of set : " + wweRoster.size()); //
+        System.out.println("---------------------------------------------------");
+        wweRoster.clear();
+
+
+
+// name and id: this case size will be 10;
+        wweRoster.add(new Person(1, "Roman Reigns"));
+        wweRoster.add(new Person(2, "Roman Reigns"));
+        wweRoster.add(new Person(3, "Cody Rhodes"));
+        wweRoster.add(new Person(4, "Cody Rhodes"));
+        wweRoster.add(new Person(5, "CM Punk"));
+        wweRoster.add(new Person(6, "CM Punk"));
+        wweRoster.add(new Person(7, "Rhea Ripley"));
+        wweRoster.add(new Person(8, "Rhea Ripley"));
+        wweRoster.add(new Person(9, "Gunther"));
+        wweRoster.add(new Person(10, "Gunther"));
+
+
+        System.out.println("Size of set : " + wweRoster.size()); //
+        System.out.println("---------------------------------------------------");
+        wweRoster.clear();
+
+    // HashMap Example:
+
+        HashMap<Person,String> roles = new HashMap<>();
+
+        Person p1 = new Person(1,"Rhea");
+        Person p2 = new Person(2,"Sadie");
+
+    // when key is the same
+        roles.put(p1,"Manager");
+        roles.put(p1,"Engineer");
+        roles.put(p2,"Sales ");
+
+        System.out.println("Size:" + roles.size()); // size is 2, dupliactes are not adde
+
+        Person p3 = new Person(1,"Alexa");
+        roles.put(p3,"Senior Manager");
+        System.out.println("Size" + roles.size()); // still 2
+        System.out.println(" Value for ID1" + roles.get(p1)); // Senior Manager
+
+
+
     }
+
+
+
+
+
 }
