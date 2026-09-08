@@ -338,7 +338,7 @@ public class Main {
     // What if we mutate the plate number? (The Trap!)
         myCar.setPlateNumber("XYZ-999");
         System.out.println("Status after mutating license plate: " + parkingLot.get(myCar)); // Returns null!
-    }
+    }//
 
     }
 
